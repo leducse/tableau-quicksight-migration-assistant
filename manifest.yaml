@@ -1,6 +1,6 @@
 workbook_id: demo-sales
 workbook_name: Regional Sales Performance
-run_id: '2026-06-02T00:50:39Z'
+run_id: '2026-06-02T01:39:40Z'
 tableau_version: '2023.3'
 source_hash: sha256:demo-fixture-0001
 genai_provider: mock-rule-based

@@ -1,6 +1,6 @@
 {
   "workbook_id": "demo-sales",
-  "run_id": "2026-06-02T00:50:39Z",
+  "run_id": "2026-06-02T01:39:40Z",
   "genai_provider": "mock-rule-based",
   "overall_status": "WARN",
   "structural_check": {
