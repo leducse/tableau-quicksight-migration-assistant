@@ -1,0 +1,14 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+node_modules/
+infra/cdk/cdk.out/
+.env
+.env.*
+!.env.example
+.DS_Store
+outputs/
+migrations/
+*.twb
+*.twbx
