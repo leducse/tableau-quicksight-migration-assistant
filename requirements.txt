@@ -1,0 +1,10 @@
+# Core (required for the local loop, no AWS creds needed)
+PyYAML>=6.0
+
+# Optional: schema validation of metadata/artifacts
+jsonschema>=4.0
+
+# Optional / guarded: only needed for the Bedrock provider and --deploy-dev.
+# The local mock provider and --dry-run run WITHOUT this. Install with:
+#   pip install boto3
+# boto3>=1.34

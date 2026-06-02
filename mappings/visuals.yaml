@@ -1,0 +1,83 @@
+workbook_id: demo-sales
+provider: mock-rule-based
+visuals:
+- worksheet_id: ws_sales_by_region
+  worksheet_name: Sales by Region
+  tableau_chart_type: bar
+  quicksight_visual_type: BarChartVisual
+  confidence: high
+  fields_used:
+  - Region
+  - Sales
+  filters:
+  - Region
+  - Order Year
+  gap: null
+- worksheet_id: ws_profit_trend
+  worksheet_name: Profit Trend
+  tableau_chart_type: line
+  quicksight_visual_type: LineChartVisual
+  confidence: high
+  fields_used:
+  - Order Date
+  - Profit Ratio
+  filters:
+  - Region
+  gap: null
+- worksheet_id: ws_sales_profit_scatter
+  worksheet_name: Sales vs Profit
+  tableau_chart_type: scatter
+  quicksight_visual_type: ScatterPlotVisual
+  confidence: high
+  fields_used:
+  - Sales
+  - Profit
+  - Category
+  filters: []
+  gap: null
+- worksheet_id: ws_category_heatmap
+  worksheet_name: Category Heatmap
+  tableau_chart_type: dual_axis
+  quicksight_visual_type: ComboChartVisual
+  confidence: medium
+  fields_used:
+  - Category
+  - Sales
+  - Profit
+  filters:
+  - Segment
+  gap: "dual_axis \u2192 combo approx"
+- worksheet_id: ws_segment_pie
+  worksheet_name: Segment Mix
+  tableau_chart_type: pie
+  quicksight_visual_type: PieChartVisual
+  confidence: high
+  fields_used:
+  - Segment
+  - Sales
+  filters: []
+  gap: null
+dashboards:
+- tableau_id: db_executive
+  tableau_name: Executive Overview
+  quicksight_dashboard_id: migration-demo-sales-db_executive-dashboard
+  quicksight_analysis_id: migration-demo-sales-db_executive-analysis
+  worksheets:
+  - ws_sales_by_region
+  - ws_profit_trend
+  - ws_segment_pie
+  filters:
+  - Region
+  - Order Year
+  parameters:
+  - Target Margin
+- tableau_id: db_detail
+  tableau_name: Category Detail
+  quicksight_dashboard_id: migration-demo-sales-db_detail-dashboard
+  quicksight_analysis_id: migration-demo-sales-db_detail-analysis
+  worksheets:
+  - ws_sales_profit_scatter
+  - ws_category_heatmap
+  filters:
+  - Segment
+  parameters: []

@@ -1,0 +1,53 @@
+{
+  "workbook_id": "demo-sales",
+  "ordered_actions": [
+    {
+      "action": "CreateDataSource",
+      "resource_id": "migration-demo-sales-sales-source",
+      "type": "REDSHIFT",
+      "idempotency": "reuse-if-exists"
+    },
+    {
+      "action": "CreateDataSet",
+      "resource_id": "migration-demo-sales-orders-dataset",
+      "physical_table": "orders",
+      "import_mode": "DIRECT_QUERY",
+      "column_count": 10
+    },
+    {
+      "action": "CreateDataSet",
+      "resource_id": "migration-demo-sales-returns-dataset",
+      "physical_table": "returns",
+      "import_mode": "DIRECT_QUERY",
+      "column_count": 2
+    },
+    {
+      "action": "CreateAnalysis",
+      "resource_id": "migration-demo-sales-db_executive-analysis",
+      "source_dashboard": "Executive Overview",
+      "visual_count": 3
+    },
+    {
+      "action": "CreateDashboard",
+      "resource_id": "migration-demo-sales-db_executive-dashboard",
+      "from_analysis": "migration-demo-sales-db_executive-analysis"
+    },
+    {
+      "action": "CreateAnalysis",
+      "resource_id": "migration-demo-sales-db_detail-analysis",
+      "source_dashboard": "Category Detail",
+      "visual_count": 2
+    },
+    {
+      "action": "CreateDashboard",
+      "resource_id": "migration-demo-sales-db_detail-dashboard",
+      "from_analysis": "migration-demo-sales-db_detail-analysis"
+    }
+  ],
+  "summary": {
+    "CreateDataSource": 1,
+    "CreateDataSet": 2,
+    "CreateAnalysis": 2,
+    "CreateDashboard": 2
+  }
+}

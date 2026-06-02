@@ -1,0 +1,48 @@
+workbook_id: demo-sales
+datasets:
+- quicksight_dataset_id: migration-demo-sales-orders-dataset
+  tableau_datasource: ds_sales
+  physical_table: orders
+  import_mode: DIRECT_QUERY
+  columns:
+  - name: Order ID
+    tableau_type: string
+    quicksight_type: STRING
+  - name: Order Date
+    tableau_type: date
+    quicksight_type: DATETIME
+  - name: Ship Date
+    tableau_type: date
+    quicksight_type: DATETIME
+  - name: Region
+    tableau_type: string
+    quicksight_type: STRING
+  - name: Segment
+    tableau_type: string
+    quicksight_type: STRING
+  - name: Category
+    tableau_type: string
+    quicksight_type: STRING
+  - name: Sales
+    tableau_type: real
+    quicksight_type: DECIMAL
+  - name: Profit
+    tableau_type: real
+    quicksight_type: DECIMAL
+  - name: Quantity
+    tableau_type: integer
+    quicksight_type: INTEGER
+  - name: Discount
+    tableau_type: real
+    quicksight_type: DECIMAL
+- quicksight_dataset_id: migration-demo-sales-returns-dataset
+  tableau_datasource: ds_sales
+  physical_table: returns
+  import_mode: DIRECT_QUERY
+  columns:
+  - name: Order ID
+    tableau_type: string
+    quicksight_type: STRING
+  - name: Returned
+    tableau_type: boolean
+    quicksight_type: STRING

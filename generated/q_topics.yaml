@@ -1,0 +1,129 @@
+topic:
+  name: Regional Sales Performance
+  description: Auto-generated Amazon Q topic from migrated workbook metadata.
+  dataset: migration-demo-sales-dataset
+  columns:
+  - name: Order ID
+    role: dimension
+    synonyms:
+    - order id
+    - order_id
+    - orderid
+    description: Order ID (string) from orders.
+  - name: Order Date
+    role: dimension
+    synonyms:
+    - order date
+    - order_date
+    - orderdate
+    description: Order Date (date) from orders.
+  - name: Ship Date
+    role: dimension
+    synonyms:
+    - ship date
+    - ship_date
+    - shipdate
+    description: Ship Date (date) from orders.
+  - name: Region
+    role: dimension
+    synonyms:
+    - region
+    description: Region (string) from orders.
+  - name: Segment
+    role: dimension
+    synonyms:
+    - segment
+    description: Segment (string) from orders.
+  - name: Category
+    role: dimension
+    synonyms:
+    - category
+    description: Category (string) from orders.
+  - name: Sales
+    role: measure
+    synonyms:
+    - sales
+    description: Sales (real) from orders.
+  - name: Profit
+    role: measure
+    synonyms:
+    - profit
+    description: Profit (real) from orders.
+  - name: Quantity
+    role: measure
+    synonyms:
+    - quantity
+    description: Quantity (integer) from orders.
+  - name: Discount
+    role: measure
+    synonyms:
+    - discount
+    description: Discount (real) from orders.
+  - name: Returned
+    role: dimension
+    synonyms:
+    - returned
+    description: Returned (boolean) from returns.
+  - name: Profit Ratio
+    role: measure
+    synonyms:
+    - profit ratio
+    - profit_ratio
+    - profitratio
+    description: 'Calculated field: Profit Ratio.'
+  - name: Is Discounted
+    role: dimension
+    synonyms:
+    - is discounted
+    - is_discounted
+    - isdiscounted
+    description: 'Calculated field: Is Discounted.'
+  - name: Order Year
+    role: dimension
+    synonyms:
+    - order year
+    - order_year
+    - orderyear
+    description: 'Calculated field: Order Year.'
+  - name: Days to Ship
+    role: measure
+    synonyms:
+    - days to ship
+    - days_to_ship
+    - daystoship
+    description: 'Calculated field: Days to Ship.'
+  - name: Region Upper
+    role: dimension
+    synonyms:
+    - region upper
+    - region_upper
+    - regionupper
+    description: 'Calculated field: Region Upper.'
+  - name: High Value Flag
+    role: dimension
+    synonyms:
+    - high value flag
+    - high_value_flag
+    - highvalueflag
+    description: 'Calculated field: High Value Flag.'
+  - name: Sales per Region (LOD)
+    role: measure
+    synonyms:
+    - sales per region (lod)
+    - sales_per_region_(lod)
+    - salesperregion(lod)
+    description: 'Calculated field: Sales per Region (LOD).'
+  - name: Running Sales
+    role: measure
+    synonyms:
+    - running sales
+    - running_sales
+    - runningsales
+    description: 'Calculated field: Running Sales.'
+  - name: Region Attr
+    role: dimension
+    synonyms:
+    - region attr
+    - region_attr
+    - regionattr
+    description: 'Calculated field: Region Attr.'

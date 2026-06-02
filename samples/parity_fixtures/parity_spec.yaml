@@ -1,0 +1,24 @@
+version: 1
+description: >-
+  Golden parity scenarios for the demo-sales workbook. Each scenario fixes a
+  filter slice and a target metric (a translated calculated field). Tableau
+  values are precomputed fixtures (no live Tableau Server in the MVP). QuickSight
+  values are precomputed fixtures simulating a post-deploy dataset query.
+tolerance_pct: 0.01
+scenarios:
+  - id: west_2023_profit_ratio
+    metric: Profit Ratio
+    calc_id: calc_profit_ratio
+    filters:
+      Region: West
+      Order Year: 2023
+  - id: east_2023_profit_ratio
+    metric: Profit Ratio
+    calc_id: calc_profit_ratio
+    filters:
+      Region: East
+      Order Year: 2023
+  - id: all_avg_days_to_ship
+    metric: Days to Ship
+    calc_id: calc_ship_days
+    filters: {}

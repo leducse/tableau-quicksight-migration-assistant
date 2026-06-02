@@ -1,0 +1,91 @@
+{
+  "workbook_id": "demo-sales",
+  "run_id": "2026-06-02T00:50:39Z",
+  "genai_provider": "mock-rule-based",
+  "overall_status": "WARN",
+  "structural_check": {
+    "status": "PASS",
+    "fields_available": 20,
+    "errors": []
+  },
+  "datasource_checks": [
+    {
+      "name": "Sales",
+      "quicksight_type": "REDSHIFT",
+      "status": "PASS",
+      "notes": []
+    }
+  ],
+  "calc_checks": {
+    "total": 9,
+    "high_confidence": 2,
+    "medium_confidence": 4,
+    "low_confidence": 0,
+    "manual_required": 3,
+    "failed_syntax": 0,
+    "coverage": "complete"
+  },
+  "parity_checks": [
+    {
+      "scenario": "west_2023_profit_ratio",
+      "metric": "Profit Ratio",
+      "status": "PASS",
+      "tableau_value": 0.1842,
+      "quicksight_value": 0.1843,
+      "delta_pct": 0.000543,
+      "tolerance_pct": 0.01
+    },
+    {
+      "scenario": "east_2023_profit_ratio",
+      "metric": "Profit Ratio",
+      "status": "PASS",
+      "tableau_value": 0.1573,
+      "quicksight_value": 0.1575,
+      "delta_pct": 0.001271,
+      "tolerance_pct": 0.01
+    },
+    {
+      "scenario": "all_avg_days_to_ship",
+      "metric": "Days to Ship",
+      "status": "SKIP",
+      "reason": "calc not high-confidence/non-LOD; parity skipped",
+      "delta_pct": null
+    }
+  ],
+  "visual_checks": {
+    "status": "MANUAL_REVIEW",
+    "dashboards": [
+      {
+        "dashboard": "Executive Overview",
+        "expected_visuals": 3,
+        "mapped_visuals": 3,
+        "count_ok": true,
+        "filters_present": true
+      },
+      {
+        "dashboard": "Category Detail",
+        "expected_visuals": 2,
+        "mapped_visuals": 2,
+        "count_ok": true,
+        "filters_present": true
+      }
+    ],
+    "gaps": [
+      "dual_axis \u2192 combo approx"
+    ]
+  },
+  "approval_recorded": true,
+  "approver": "demo-reviewer",
+  "deploy_allowed": true,
+  "blockers": [],
+  "warnings": [
+    "calc 'Is Discounted' is medium confidence; review translation",
+    "calc 'Order Year' is medium confidence; review translation",
+    "calc 'Days to Ship' is medium confidence; review translation",
+    "calc 'High Value Flag' is medium confidence; review translation",
+    "calc 'Sales per Region (LOD)' requires manual rewrite (lod)",
+    "calc 'Running Sales' requires manual rewrite (table_calc)",
+    "calc 'Region Attr' requires manual rewrite (other)",
+    "visual gap: dual_axis \u2192 combo approx"
+  ]
+}

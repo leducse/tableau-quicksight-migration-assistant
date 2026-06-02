@@ -1,0 +1,4 @@
+scenario,metric,status,tableau_value,quicksight_value,delta_pct
+west_2023_profit_ratio,Profit Ratio,PASS,0.1842,0.1843,0.000543
+east_2023_profit_ratio,Profit Ratio,PASS,0.1573,0.1575,0.001271
+all_avg_days_to_ship,Days to Ship,SKIP,,,None

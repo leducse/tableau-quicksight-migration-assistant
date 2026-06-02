@@ -1,0 +1,90 @@
+workbook_id: demo-sales
+provider: mock-rule-based
+calculations:
+- tableau_calc_id: calc_profit_ratio
+  tableau_name: Profit Ratio
+  tableau_formula: SUM([Profit]) / SUM([Sales])
+  quicksight_name: Profit Ratio
+  quicksight_expression: sum({Profit}) / sum({Sales})
+  confidence: high
+  category: arithmetic
+  manual_required: false
+  notes: []
+- tableau_calc_id: calc_discounted
+  tableau_name: Is Discounted
+  tableau_formula: IF [Discount] > 0 THEN "Yes" ELSE "No" END
+  quicksight_name: Is Discounted
+  quicksight_expression: ifelse({Discount} > 0, 'Yes', 'No')
+  confidence: medium
+  category: conditional
+  manual_required: false
+  notes:
+  - Conditional rewritten to ifelse(); verify branch types.
+- tableau_calc_id: calc_order_year
+  tableau_name: Order Year
+  tableau_formula: YEAR([Order Date])
+  quicksight_name: Order Year
+  quicksight_expression: extract('YYYY', {Order Date})
+  confidence: medium
+  category: date
+  manual_required: false
+  notes:
+  - YEAR mapped to extract('YYYY', ...); confirm date part semantics.
+- tableau_calc_id: calc_ship_days
+  tableau_name: Days to Ship
+  tableau_formula: DATEDIFF('day', [Order Date], [Ship Date])
+  quicksight_name: Days to Ship
+  quicksight_expression: dateDiff({Order Date}, {Ship Date}, 'DD')
+  confidence: medium
+  category: date
+  manual_required: false
+  notes: []
+- tableau_calc_id: calc_region_upper
+  tableau_name: Region Upper
+  tableau_formula: UPPER([Region])
+  quicksight_name: Region Upper
+  quicksight_expression: toUpper({Region})
+  confidence: high
+  category: string
+  manual_required: false
+  notes: []
+- tableau_calc_id: calc_high_value
+  tableau_name: High Value Flag
+  tableau_formula: IIF([Sales] >= 1000, "High", "Standard")
+  quicksight_name: High Value Flag
+  quicksight_expression: ifelse({Sales} >= 1000, 'High', 'Standard')
+  confidence: medium
+  category: conditional
+  manual_required: false
+  notes:
+  - Conditional rewritten to ifelse(); verify branch types.
+- tableau_calc_id: calc_sales_per_region_lod
+  tableau_name: Sales per Region (LOD)
+  tableau_formula: '{ FIXED [Region] : SUM([Sales]) }'
+  quicksight_name: Sales per Region (LOD)
+  quicksight_expression: null
+  confidence: low
+  category: lod
+  manual_required: true
+  notes:
+  - Tableau LOD expression; rebuild with QuickSight LAC-A/LAC-W functions.
+- tableau_calc_id: calc_running_sales
+  tableau_name: Running Sales
+  tableau_formula: RUNNING_SUM(SUM([Sales]))
+  quicksight_name: Running Sales
+  quicksight_expression: null
+  confidence: low
+  category: table_calc
+  manual_required: true
+  notes:
+  - Tableau table calculation; rebuild as a QuickSight table calc on the visual.
+- tableau_calc_id: calc_attr_region
+  tableau_name: Region Attr
+  tableau_formula: ATTR([Region])
+  quicksight_name: Region Attr
+  quicksight_expression: null
+  confidence: low
+  category: other
+  manual_required: true
+  notes:
+  - ATTR has no direct QuickSight equivalent; verify aggregation intent.

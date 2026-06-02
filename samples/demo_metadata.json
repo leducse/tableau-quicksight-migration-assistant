@@ -1,0 +1,200 @@
+{
+  "workbook_id": "demo-sales",
+  "name": "Regional Sales Performance",
+  "tableau_version": "2023.3",
+  "source_hash": "sha256:demo-fixture-0001",
+  "datasources": [
+    {
+      "id": "ds_sales",
+      "name": "Sales",
+      "connection": {
+        "class": "redshift",
+        "server": "warehouse.internal.example",
+        "port": 5439,
+        "database": "analytics",
+        "schema": "sales"
+      },
+      "tables": [
+        {
+          "name": "orders",
+          "type": "table",
+          "fields": [
+            { "name": "Order ID", "datatype": "string", "role": "dimension" },
+            { "name": "Order Date", "datatype": "date", "role": "dimension" },
+            { "name": "Ship Date", "datatype": "date", "role": "dimension" },
+            { "name": "Region", "datatype": "string", "role": "dimension" },
+            { "name": "Segment", "datatype": "string", "role": "dimension" },
+            { "name": "Category", "datatype": "string", "role": "dimension" },
+            { "name": "Sales", "datatype": "real", "role": "measure" },
+            { "name": "Profit", "datatype": "real", "role": "measure" },
+            { "name": "Quantity", "datatype": "integer", "role": "measure" },
+            { "name": "Discount", "datatype": "real", "role": "measure" }
+          ]
+        },
+        {
+          "name": "returns",
+          "type": "table",
+          "fields": [
+            { "name": "Order ID", "datatype": "string", "role": "dimension" },
+            { "name": "Returned", "datatype": "boolean", "role": "dimension" }
+          ]
+        }
+      ]
+    }
+  ],
+  "calculated_fields": [
+    {
+      "id": "calc_profit_ratio",
+      "name": "Profit Ratio",
+      "datasource": "ds_sales",
+      "datatype": "real",
+      "role": "measure",
+      "formula": "SUM([Profit]) / SUM([Sales])",
+      "depends_on": ["Profit", "Sales"]
+    },
+    {
+      "id": "calc_discounted",
+      "name": "Is Discounted",
+      "datasource": "ds_sales",
+      "datatype": "boolean",
+      "role": "dimension",
+      "formula": "IF [Discount] > 0 THEN \"Yes\" ELSE \"No\" END",
+      "depends_on": ["Discount"]
+    },
+    {
+      "id": "calc_order_year",
+      "name": "Order Year",
+      "datasource": "ds_sales",
+      "datatype": "integer",
+      "role": "dimension",
+      "formula": "YEAR([Order Date])",
+      "depends_on": ["Order Date"]
+    },
+    {
+      "id": "calc_ship_days",
+      "name": "Days to Ship",
+      "datasource": "ds_sales",
+      "datatype": "integer",
+      "role": "measure",
+      "formula": "DATEDIFF('day', [Order Date], [Ship Date])",
+      "depends_on": ["Order Date", "Ship Date"]
+    },
+    {
+      "id": "calc_region_upper",
+      "name": "Region Upper",
+      "datasource": "ds_sales",
+      "datatype": "string",
+      "role": "dimension",
+      "formula": "UPPER([Region])",
+      "depends_on": ["Region"]
+    },
+    {
+      "id": "calc_high_value",
+      "name": "High Value Flag",
+      "datasource": "ds_sales",
+      "datatype": "string",
+      "role": "dimension",
+      "formula": "IIF([Sales] >= 1000, \"High\", \"Standard\")",
+      "depends_on": ["Sales"]
+    },
+    {
+      "id": "calc_sales_per_region_lod",
+      "name": "Sales per Region (LOD)",
+      "datasource": "ds_sales",
+      "datatype": "real",
+      "role": "measure",
+      "formula": "{ FIXED [Region] : SUM([Sales]) }",
+      "depends_on": ["Region", "Sales"]
+    },
+    {
+      "id": "calc_running_sales",
+      "name": "Running Sales",
+      "datasource": "ds_sales",
+      "datatype": "real",
+      "role": "measure",
+      "formula": "RUNNING_SUM(SUM([Sales]))",
+      "depends_on": ["Sales"]
+    },
+    {
+      "id": "calc_attr_region",
+      "name": "Region Attr",
+      "datasource": "ds_sales",
+      "datatype": "string",
+      "role": "dimension",
+      "formula": "ATTR([Region])",
+      "depends_on": ["Region"]
+    }
+  ],
+  "worksheets": [
+    {
+      "id": "ws_sales_by_region",
+      "name": "Sales by Region",
+      "chart_type": "bar",
+      "datasource": "ds_sales",
+      "fields_used": ["Region", "Sales"],
+      "filters": ["Region", "Order Year"],
+      "marks": { "color": "Segment" }
+    },
+    {
+      "id": "ws_profit_trend",
+      "name": "Profit Trend",
+      "chart_type": "line",
+      "datasource": "ds_sales",
+      "fields_used": ["Order Date", "Profit Ratio"],
+      "filters": ["Region"],
+      "marks": {}
+    },
+    {
+      "id": "ws_sales_profit_scatter",
+      "name": "Sales vs Profit",
+      "chart_type": "scatter",
+      "datasource": "ds_sales",
+      "fields_used": ["Sales", "Profit", "Category"],
+      "filters": [],
+      "marks": { "color": "Category" }
+    },
+    {
+      "id": "ws_category_heatmap",
+      "name": "Category Heatmap",
+      "chart_type": "dual_axis",
+      "datasource": "ds_sales",
+      "fields_used": ["Category", "Sales", "Profit"],
+      "filters": ["Segment"],
+      "marks": {}
+    },
+    {
+      "id": "ws_segment_pie",
+      "name": "Segment Mix",
+      "chart_type": "pie",
+      "datasource": "ds_sales",
+      "fields_used": ["Segment", "Sales"],
+      "filters": [],
+      "marks": {}
+    }
+  ],
+  "dashboards": [
+    {
+      "id": "db_executive",
+      "name": "Executive Overview",
+      "worksheets": ["ws_sales_by_region", "ws_profit_trend", "ws_segment_pie"],
+      "filters": ["Region", "Order Year"],
+      "parameters": ["Target Margin"]
+    },
+    {
+      "id": "db_detail",
+      "name": "Category Detail",
+      "worksheets": ["ws_sales_profit_scatter", "ws_category_heatmap"],
+      "filters": ["Segment"],
+      "parameters": []
+    }
+  ],
+  "parameters": [
+    {
+      "id": "param_target_margin",
+      "name": "Target Margin",
+      "datatype": "real",
+      "current_value": 0.15,
+      "allowable_values": "range"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+scenario,metric,value
+west_2023_profit_ratio,Profit Ratio,0.1843
+east_2023_profit_ratio,Profit Ratio,0.1575
+all_avg_days_to_ship,Days to Ship,3.9100

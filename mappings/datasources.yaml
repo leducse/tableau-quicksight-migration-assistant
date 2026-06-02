@@ -1,0 +1,14 @@
+workbook_id: demo-sales
+datasources:
+- tableau_id: ds_sales
+  tableau_name: Sales
+  quicksight_data_source_id: migration-demo-sales-sales-source
+  quicksight_type: REDSHIFT
+  supported: true
+  connection:
+    host: warehouse.internal.example
+    port: 5439
+    database: analytics
+    schema: sales
+  status: READY
+  notes: []
